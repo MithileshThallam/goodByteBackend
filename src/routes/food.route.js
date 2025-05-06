@@ -1,6 +1,7 @@
 import express from 'express';
 import { donateFood, getAllFood } from '../controllers/food.controller.js';
-import { verifyToken } from '../middlewares/auth.middleware.js'
+import { verifyToken } from '../middlewares/auth.middleware.js';
+// import { verifyToken } from '../middlewares/auth.middleware.js'
 
 const router = express.Router();
 

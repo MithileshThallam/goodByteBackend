@@ -1,10 +1,6 @@
-// controllers/authController.js
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
-// Replace this with your real secret key
-const JWT_SECRET = "your_jwt_secret_here";
 
 // Signup Controller
 export const signup = async (req, res) => {
@@ -39,7 +35,6 @@ export const signup = async (req, res) => {
 
     await newUser.save();
     res.status(201).json({ message: "User registered successfully" });
-
   } catch (err) {
     res.status(500).json({ message: "Something went wrong", error: err.message });
   }
@@ -59,7 +54,7 @@ export const login = async (req, res) => {
     if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
 
     // Generate token
-    const token = jwt.sign({ id: user._id, userType: user.userType }, JWT_SECRET, {
+    const token = jwt.sign({ id: user._id, userType: user.userType }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
@@ -73,7 +68,6 @@ export const login = async (req, res) => {
         userType: user.userType,
       },
     });
-
   } catch (err) {
     res.status(500).json({ message: "Login failed", error: err.message });
   }
